@@ -1,0 +1,46 @@
+.form-group select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 14px;
+  color: #333;
+  appearance: none; 
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: #4e5be6;
+  box-shadow: 0 0 0 2px rgba(78, 91, 230, 0.2);
+}
+
+.atable-container {
+    width: 150%;
+    border-radius: 8px;
+    padding: 20px;
+    overflow-x: auto;
+    margin-top: 30px;
+    margin-left: 150px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #dddddd;
+}
+
+.admin-table th {
+    background-color: #dddddd;
+    font-weight: 600;
+}
