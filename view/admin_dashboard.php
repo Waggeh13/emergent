@@ -18,7 +18,7 @@
                 <ul>
                 <li><a href="admin_dashboard.php"><i class="fas fa-tachometer-alt"></i> Overview</a></li>
                 <li><a href="district_management.php"><i class="fas fa-map-marked-alt"></i> District Management</a></li>
-                <li><a href="#"><i class="fas fa-user-shield"></i> Admin Accounts</a></li>
+                <li><a href="admin_accounts.php"><i class="fas fa-user-shield"></i> Admin Accounts</a></li>
                 <li><a href="#"><i class="fas fa-chart-line"></i> Reports & Analytics</a></li>
                 <li><a href="#"><i class="fas fa-clipboard-list"></i> Activity Logs</a></li>
                 <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>

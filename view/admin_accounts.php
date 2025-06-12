@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>District Management</title>
+    <title>Dasboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/district_Style.css">
 
 </head>
-<style>
-   
-</style>
+
 <body>
-<div class="dashboard-container">
+    <div class="dashboard-container">
         <div class="sidebar">
             <h1 class="logo">LOGO</h1>
             <nav class="main-nav">
                 <ul>
-                <li class="active"><a href="admin_dashboard.php"><i class="fas fa-tachometer-alt"></i> Overview</a></li>
+                <li><a href="admin_dashboard.php"><i class="fas fa-tachometer-alt"></i> Overview</a></li>
                 <li><a href="district_management.php"><i class="fas fa-map-marked-alt"></i> District Management</a></li>
                 <li><a href="admin_accounts.php"><i class="fas fa-user-shield"></i> Admin Accounts</a></li>
                 <li><a href="#"><i class="fas fa-chart-line"></i> Reports & Analytics</a></li>
@@ -31,7 +29,7 @@
         <div class="main-content">
 
             <div class="topbar">
-                <h1>District Management</h1>
+                <h1>Admin Accounts</h1>
                 <nav class="topbar-nav">
                     <ul>
                         <li><a href="#">Districts</a></li>
@@ -49,8 +47,7 @@
                         <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
-            </div>
-            <div class="btn-add" id="addDistrictBtn">
+                <div class="btn-add" id="addDistrictBtn">
                 <div class="add-icon">
                     <i class="fas fa-plus"></i>
                 </div>
@@ -113,6 +110,5 @@
     
     <script src="../js/add_district_modal.js"></script>
     <script src="../js/script.js"></script>
-    
 </body>
 </html>
