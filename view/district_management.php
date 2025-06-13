@@ -7,10 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/district_Style.css">
-
 </head>
 <style>
-   
 </style>
 <body>
 <div class="dashboard-container">
@@ -29,7 +27,6 @@
         </div>
 
         <div class="main-content">
-
             <div class="topbar">
                 <h1>District Management</h1>
                 <nav class="topbar-nav">
@@ -63,14 +60,13 @@
                         <tr>
                             <th>District ID</th>
                             <th>Name</th>
-                            <th>Payment</th>
+                            <th>Total Paid</th>
+                            <th>Total Owed</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <!--populates here-->
-                        </tr>
+                        <!-- Populated by JavaScript -->
                     </tbody>
                 </table>
             </div>
@@ -79,7 +75,7 @@
 
     <div class="modal" id="districtModal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close">×</span>
             <h3 id="modalTitle">Add New District</h3>
             <form id="districtForm">
                 <div class="form-group">
@@ -89,10 +85,6 @@
                 <div class="form-group">
                     <label for="districtName">District Name</label>
                     <input type="text" name="districtName" id="districtName" required>
-                </div>
-                <div class="form-group">
-                    <label for="payment">Payment</label>
-                    <input type="number" name="payment" id="payment" required>
                 </div>
                 <button type="submit" class="btn-submit">Save District</button>
             </form>
@@ -111,7 +103,6 @@
     </div>
     
     <script src="../js/add_district_modal.js"></script>
-    <script src="../js/script.js"></script>
     
 </body>
 </html>
