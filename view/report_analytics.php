@@ -6,6 +6,7 @@
     <title>Dasboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/reports_styles.css">
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 
@@ -28,7 +29,7 @@
         <div class="main-content">
 
             <div class="topbar">
-                <h1>Dashboard</h1>
+                <h1 style="font-size: 24px;">Reports & Analytics</h1>
                 <nav class="topbar-nav">
                     <ul>
                         <li><a href="district_management.php">Districts</a></li>
@@ -48,68 +49,52 @@
                 </div>
             </div>
 
-            <section class="stats-cards">
-
-                <div class="card">
-                    <h3>Total Districts</h3>
-                    <p>12</p>
+            <div class="metrics-grid">
+                <div class="metrics-card">
+                    <h3>Total Properties Billed</h3>
+                    <div class="metric-value">10,000</div>
                 </div>
-
-                <div class="card">
-                    <h3>Total Admins</h3>
-                    <p>34</p>
+                <div class="metrics-card">
+                    <h3>Total Payments</h3>
+                    <div class="metric-value">500,000</div>
                 </div>
-
-                <div class="card">
-                    <h3>Total Properties</h3>
-                    <p>8542</p>
+                <div class="metrics-card">
+                    <h3>Paid Properties</h3>
+                    <div class="metric-value">7,200 <span class="percentage">(72%)</span></div>
                 </div>
-
-                <div class="card">
-                    <h3>Total collected</h3>
-                    <p>₵678900</p>
+                <div class="metrics-card">
+                    <h3>Unpaid Properties</h3>
+                    <div class="metric-value">2,800 <span class="percentage">(28%)</div>
                 </div>
+            </div>
 
-            </section>
-
-            <section class="chart-section">
-                <h2>National Collection Trend</h2>
-                <div class="chart-container">
-            
+            <div class="section>">
+                <h2>Payment Status Visualization</h2>
+                <div class="chart">
+                    <canvas id="districtBarChart" width="900" height="300"></canvas>
                 </div>
-            </section>
-            <section class="activity-section">
-                <h2>Recent Activity</h2>
-                <div class="activity-list">
+            </div>
 
-                    <div class="activity-item">
-                        <div class="activity-id">100</div>
-                        <div class="activity-content">
-                            <p>Added a new admin in District A</p>
-                            <span class="activity-time">Today, 10:45 AM</span>
-                        </div>
-                    </div>
-
-                    <div class="activity-item">
-                        <div class="activity-id">926</div>
-                        <div class="activity-content">
-                            <p>Generated report for nationwide collection</p>
-                            <span class="activity-time">Today, 9:30 AM</span>
-                        </div>
-                    </div> 
-
-                    <div class="activity-item">
-                        <div class="activity-id">926</div>
-                        <div class="activity-content">
-                            <p>Generated report for nationwide collection</p>
-                            <span class="activity-time">Today, 9:30 AM</span>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
+            <div class="section">
+                <h2>District-Level Breakdown</h2>
+                <table id="district-table">
+                    <thead>
+                        <tr>
+                            <th>District</th>
+                            <th>Total Billed</th>
+                            <th>Paid</th>
+                            <th>Unpaid</th>
+                            <th>% Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--populated here-->
+                    </tbody>
+                </table>
+            </div>
         </div> 
     </div>
+    <script src="../js/reports.js"></script>
     <script src="../js/script.js"></script>
 </body>
 </html>

@@ -21,7 +21,7 @@
                 <li class="active"><a href="admin_dashboard.php"><i class="fas fa-tachometer-alt"></i> Overview</a></li>
                 <li><a href="district_management.php"><i class="fas fa-map-marked-alt"></i> District Management</a></li>
                 <li><a href="admin_accounts.php"><i class="fas fa-user-shield"></i> Admin Accounts</a></li>
-                <li><a href="#"><i class="fas fa-chart-line"></i> Reports & Analytics</a></li>
+                <li><a href="report_analytics.php"><i class="fas fa-chart-line"></i> Reports & Analytics</a></li>
                 <li><a href="#"><i class="fas fa-clipboard-list"></i> Activity Logs</a></li>
                 <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
                 </ul>
@@ -34,9 +34,9 @@
                 <h1>District Management</h1>
                 <nav class="topbar-nav">
                     <ul>
-                        <li><a href="#">Districts</a></li>
-                        <li><a href="#">Admins</a></li>
-                        <li><a href="#">Reports</a></li>
+                        <li><a href="district_management.php">Districts</a></li>
+                        <li><a href="admin_accounts.php">Admins</a></li>
+                        <li><a href="report_analytics.php">Reports</a></li>
                     </ul>    
                 </nav>
                 <div class="user-profile">
@@ -61,10 +61,9 @@
                 <table class="districts-table">
                     <thead>
                         <tr>
+                            <th>District ID</th>
                             <th>Name</th>
-                            <th>Billed Amount</th>
-                            <th>Collected Amount</th>
-                            <th>Collection %</th>
+                            <th>Payment</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -84,16 +83,16 @@
             <h3 id="modalTitle">Add New District</h3>
             <form id="districtForm">
                 <div class="form-group">
+                    <label for="districtId">District ID</label>
+                    <input type="text" name="districtId" id="districtId" required>
+                </div>
+                <div class="form-group">
                     <label for="districtName">District Name</label>
                     <input type="text" name="districtName" id="districtName" required>
                 </div>
                 <div class="form-group">
-                    <label for="billedAmount">Billed Amount (₵)</label>
-                    <input type="number" name="billedAmount" id="billedAmount" required>
-                </div>
-                <div class="form-group">
-                    <label for="collectedAmount">Collected Amount (₵)</label>
-                    <input type="number" name="collectedAmount" id="collectedAmount" required>
+                    <label for="payment">Payment</label>
+                    <input type="number" name="payment" id="payment" required>
                 </div>
                 <button type="submit" class="btn-submit">Save District</button>
             </form>

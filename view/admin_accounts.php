@@ -20,7 +20,7 @@
           <li><a href="admin_dashboard.php"><i class="fas fa-tachometer-alt"></i> Overview</a></li>
           <li><a href="district_management.php"><i class="fas fa-map-marked-alt"></i> District Management</a></li>
           <li class="active"><a href="admin_accounts.php"><i class="fas fa-user-shield"></i> Admin Accounts</a></li>
-          <li><a href="#"><i class="fas fa-chart-line"></i> Reports & Analytics</a></li>
+          <li><a href="report_analytics.php"><i class="fas fa-chart-line"></i> Reports & Analytics</a></li>
           <li><a href="#"><i class="fas fa-clipboard-list"></i> Activity Logs</a></li>
           <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
         </ul>
@@ -32,9 +32,9 @@
         <h1>Admin Accounts</h1>
         <nav class="topbar-nav">
           <ul>
-            <li><a href="#">Districts</a></li>
-            <li><a href="#">Admins</a></li>
-            <li><a href="#">Reports</a></li>
+            <li><a href="district_management.php">Districts</a></li>
+                        <li><a href="admin_accounts.php">Admins</a></li>
+                        <li><a href="report_analytics.php">Reports</a></li>
           </ul>
         </nav>
         <div class="user-profile">
