@@ -6,7 +6,7 @@
     <title>Dasboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/reports_styles.css">
+    <link rel="stylesheet" href="../css/activity_log_styles.css">
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 
@@ -29,7 +29,7 @@
         <div class="main-content">
 
             <div class="topbar">
-                <h1 style="font-size: 24px;">Reports & Analytics</h1>
+                <h1>Activity Log</h1>
                 <nav class="topbar-nav">
                     <ul>
                         <li><a href="district_management.php">Districts</a></li>
@@ -49,52 +49,55 @@
                 </div>
             </div>
 
-            <div class="metrics-grid">
-                <div class="metrics-card">
-                    <h3>Total Properties Billed</h3>
-                    <div class="metric-value">10,000</div>
-                </div>
-                <div class="metrics-card">
-                    <h3>Total Payments</h3>
-                    <div class="metric-value">500,000</div>
-                </div>
-                <div class="metrics-card">
-                    <h3>Paid Properties</h3>
-                    <div class="metric-value">7,200 <span class="percentage">(72%)</span></div>
-                </div>
-                <div class="metrics-card">
-                    <h3>Unpaid Properties</h3>
-                    <div class="metric-value">2,800 <span class="percentage">(28%)</div>
-                </div>
-            </div>
-
-            <div class="section>">
-                <h2>Payment Status Visualization</h2>
-                <div class="chart">
-                    <canvas id="districtBarChart" width="900" height="300"></canvas>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>District-Level Breakdown</h2>
-                <table id="district-table">
-                    <thead>
-                        <tr>
-                            <th>District</th>
-                            <th>Total Billed</th>
-                            <th>Paid</th>
-                            <th>Unpaid</th>
-                            <th>% Paid</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!--populated here-->
-                    </tbody>
-                </table>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Admin ID</th>
+                        <th>Activity</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="id">6000</td>
+                        <td>Upload bulk property data from Lands Commission</td>
+                        <td class="timestamp">Apr 23, 7453 apm. ET</td>
+                    </tr>
+                    <tr>
+                        <td class="id">6000</td>
+                        <td>Upload bulk property data from Lands Commission</td>
+                        <td class="timestamp">Apr 23, 7453 apm. ET</td>
+                    </tr>
+                    <tr>
+                        <td class="id">6000</td>
+                        <td>Upload bulk property data from Lands Commission</td>
+                        <td class="timestamp">Apr 23, 7453 apm. ET</td>
+                    </tr>
+                    <tr>
+                        <td class="id">6000</td>
+                        <td>Upload bulk property data from Lands Commission</td>
+                        <td class="timestamp">Apr 23, 7453 apm. ET</td>
+                    </tr>
+                    <tr>
+                        <td class="id">6000</td>
+                        <td>Upload bulk property data from Lands Commission</td>
+                        <td class="timestamp">Apr 23, 7453 apm. ET</td>
+                    </tr>
+                    <tr>
+                        <td class="id">6000</td>
+                        <td>Upload bulk property data from Lands Commission</td>
+                        <td class="timestamp">Apr 23, 7453 apm. ET</td>
+                    </tr>
+                    <tr>
+                        <td class="id">6000</td>
+                        <td>Upload bulk property data from Lands Commission</td>
+                        <td class="timestamp">Apr 23, 7453 apm. ET</td>
+                    </tr>
+                </tbody>
+            </table>
+            
         </div> 
     </div>
-    <script src="../js/reports.js"></script>
     <script src="../js/script.js"></script>
 </body>
 </html>
