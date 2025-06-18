@@ -33,18 +33,17 @@ class login_class extends db_connection
 
     public function get_user_by_number($phone_number)
     {
-        $sql = "SELECT user_number, role, password FROM user_table WHERE phone_number = ?";
+        $sql = "SELECT phone_number, password FROM user_table WHERE phone_number = ?";
         $stmt = $this->db_conn()->prepare($sql);
         if ($stmt) {
-            $stmt->bind_param("s", $user_id);
+            $stmt->bind_param("s", $phone_number);
             $stmt->execute();
             $stmt->store_result();
             if ($stmt->num_rows > 0) {
-                $stmt->bind_result($user_id, $role, $password);
+                $stmt->bind_result($phone_number, $password);
                 $stmt->fetch();
                 return [
-                    'user_id' => $user_id,
-                    'role' => $role,
+                    'phone_number' => $phone_number,
                     'password' => $password
                 ];
             } else {

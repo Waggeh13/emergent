@@ -11,15 +11,17 @@
     <body>
         <div class="container">
             <div class="form-box login">
-                <form action=" ">
+                <form id="loginForm" method="POST">
                     <h1>Login</h1>
                     <div class="input-box">
-                        <input type=text name="id" placeholder="ID" required>
+                        <input type=text name="phone_number" id="phone_number" placeholder="Phone Number" required>
                         <i class="fas fa-user"></i>
+                        <div id="phoneError" class="error-message"></div><br>
                     </div>
                     <div class="input-box">
-                        <input type=password name="password" placeholder="Password" required>
+                        <input type=password name="password" id="password" placeholder="Password" required>
                         <i class="fas fa-lock"></i>
+                        <div id="passwordError" class="error-message"></div><br>
                     </div>
                     <div class="forgot-link">
                         <a href="#">Forgot password?</a>
@@ -29,7 +31,7 @@
             </div>
 
             <div class="form-box register">
-                <form action=" ">
+                <form id="registerForm" method="POST">
                     <h1>Registration</h1>
                     <div class="input-box">
                         <input type=text name="phoneNumber" placeholder="Phone Number" required>

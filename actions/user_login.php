@@ -2,9 +2,9 @@
 session_start();
 include("../controllers/login_controller.php");
 
-$response = ['error' => false, 'message' => '','property_id' => ''];
+$response = ['error' => false, 'message' => ''];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone_number = sanitize_input($_POST['phone_number']);
     $password = sanitize_input($_POST['password']);
 
