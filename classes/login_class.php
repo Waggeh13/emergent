@@ -53,5 +53,28 @@ class login_class extends db_connection
             return false;
         }
     }
+
+        public function get_super_admin($super_admin_id)
+    {
+        $sql = "SELECT superadmin_id, password FROM superadmin_table WHERE superadmin_id = ?";
+        $stmt = $this->db_conn()->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("s", $super_admin_id);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows > 0) {
+                $stmt->bind_result($super_admin_id, $password);
+                $stmt->fetch();
+                return [
+                    'super_admin_id' => $super_admin_id,
+                    'password' => $password
+                ];
+            } else {
+                return null;
+            }
+        } else {
+            return false;
+        }
+    }
 }
 ?>

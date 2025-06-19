@@ -54,4 +54,33 @@ function login_user($phone_number, $password)
         return ['error' => true, 'message' => 'Incorrect password.'];
     }
 }
+
+function login_super_admin($super_admin_id, $password)
+{
+    $super_admin_login = new login_class();
+
+    $user = $super_admin_login->get_super_admin($super_admin_id);
+    if ($user === null) {
+        return [
+            'error' => true,
+            'message' => 'Super admin not registered or incorrect ID.',
+            'is_default_password' => false
+        ];
+    }
+
+    if ($super_admin_login->verify_password($password, $user['password'])) {
+        
+        $_SESSION['super_admin_id'] = $user['super_admin_id'];
+
+        return [
+            'error' => false,
+            'message' => 'Login successful.'
+        ];
+    } else {
+        return [
+            'error' => true,
+            'message' => 'Incorrect password.'
+        ];
+    }
+}
 ?>
