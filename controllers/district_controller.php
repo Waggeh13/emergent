@@ -7,12 +7,14 @@ function sanitize_input($input) {
 
 function viewdistrictsController() {
     $districts = new district_class();
-    return $districts->getdistricts();
+    $result = $districts->getdistricts();
+    return $result !== false ? $result : [];
 }
 
 function district_exists_ctr($district_id) {
     $district = new district_class();
-    return $district->district_ID_exists($district_id);
+    $result = $district->district_ID_exists($district_id);
+    return $result !== false && !empty($result);
 }
 
 function adddistrictController($districtId, $districtName) {

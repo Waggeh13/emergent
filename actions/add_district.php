@@ -5,38 +5,35 @@ include("../controllers/district_controller.php");
 $response = array("success" => false, "message" => "");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
-        $response["message"] = "User not logged in.";
-        echo json_encode($response);
-        exit();
-    }
+    try {
+        if (!isset($_SESSION['super_admin_id'])) {
+            throw new Exception("User not authenticated. Please log in.");
+        }
 
-    $districtId = sanitize_input($_POST['districtId']);
+        $districtId = isset($_POST['districtId']) ? trim($_POST['districtId']) : '';
+        $districtName = isset($_POST['districtName']) ? trim($_POST['districtName']) : '';
 
-    if (district_exists_ctr($districtId)) {
-        $response = [
-            "success" => false,
-            "message" => "ID already registered. Please Verify."
-        ];
-        echo json_encode($response);
-        exit();
-    }
 
-    $districtName = sanitize_input($_POST['districtName']);
+        if (district_exists_ctr($districtId)) {
+            throw new Exception("District ID already exists.");
+        }
 
-    $result = adddistrictController($districtId, $districtName);
-    if ($result) {
-        $response["success"] = true;
-        $response["message"] = "District registered successfully.";
-    } else {
-        $response["success"] = false;
-        $response["message"] = "Error: Unable to register district. Please try again.";
+        $result = adddistrictController($districtId, $districtName);
+
+        if ($result) {
+            $response["success"] = true;
+            $response["message"] = "District added successfully.";
+        } else {
+            throw new Exception("Failed to add district.");
+        }
+    } catch (Exception $e) {
+        $response["message"] = $e->getMessage();
     }
 } else {
     $response["message"] = "Invalid request method.";
 }
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 echo json_encode($response);
 exit();
 ?>

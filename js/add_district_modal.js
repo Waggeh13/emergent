@@ -31,17 +31,18 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
             const jsonResponse = await response.json();
-            if (jsonResponse.success && Array.isArray(jsonResponse.data)) {
+            if (jsonResponse.success && jsonResponse.data && Array.isArray(jsonResponse.data)) {
                 renderDistricts(jsonResponse.data);
             } else {
+                console.error('Invalid response format:', jsonResponse);
                 renderDistricts([]);
             }
         } catch (error) {
-            console.error('Error fetching districts:', error);
+            console.error('Error fetching districts:', error, { stack: error.stack });
             districtsTable.innerHTML = `
                 <tr>
                     <td colspan="5" style="text-align: center; padding: 20px;">
@@ -77,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 if (!amountResponse.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(`HTTP error! Status: ${amountResponse.status}`);
                 }
 
                 const amountData = await amountResponse.json();
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 `;
                 districtsTable.appendChild(row);
             } catch (error) {
-                console.error(`Error fetching amounts for district ${district.district_id}:`, error);
+                console.error(`Error fetching amounts for district ${district.district_id}:`, error, { stack: error.stack });
             }
         }
 
@@ -131,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
             const data = await response.json();
@@ -144,10 +145,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 modal.style.display = 'block';
                 document.body.classList.add('modal-active');
             } else {
-                alert('District not found.');
+                console.error('District not found:', { district_id: id, response: data });
             }
         } catch (error) {
-            alert('Error loading district data. Please try again.');
+            console.error('Error loading district data:', error, { stack: error.stack });
         }
     }
 
@@ -166,30 +167,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const form = document.getElementById('districtForm');
         const formData = new FormData(form);
-        const actionUrl = currentEditId ? '../actions/update_district.php' : '../actions/add_district.php';
 
         try {
-            const response = await fetch(actionUrl, {
+            const response = await fetch('../actions/add_district.php', {
                 method: 'POST',
                 body: formData,
             });
 
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                const responseText = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status}, Response: ${responseText}`);
             }
 
             const data = await response.json();
 
             if (data.success) {
-                alert(data.message);
                 closeModal();
                 fetchDistricts();
             } else {
-                alert(data.message);
+                console.error('Failed to save district:', data.message);
                 form.reset();
             }
         } catch (error) {
-            alert('An unexpected error occurred. Please try again.');
+            console.error('Error submitting form:', error, { stack: error.stack });
         }
     }
 
@@ -211,19 +211,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
 
                 const data = await response.json();
 
                 if (data.success) {
-                    alert(data.message);
                     fetchDistricts();
                 } else {
-                    alert(data.message);
+                    console.error('Failed to delete district:', data.message);
                 }
             } catch (error) {
-                alert('Error deleting district. Please try again.');
+                console.error('Error deleting district:', error, { stack: error.stack });
             } finally {
                 deleteConfirmModal.style.display = 'none';
                 document.body.classList.remove('modal-active');

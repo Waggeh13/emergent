@@ -66,7 +66,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Populated by JavaScript -->
                     </tbody>
                 </table>
             </div>

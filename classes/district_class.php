@@ -1,17 +1,23 @@
 <?php
+session_start();
 require_once("../settings/db_class.php");
 
 class district_class extends db_connection {
 
     public function getdistricts() {
         $sql = "SELECT * FROM district_table ORDER BY district_name";
-        return $this->db_fetch_all($sql);
+        $result = $this->db_fetch_all($sql);
+        return $result !== false ? $result : [];
     }
 
     public function adddistrict($district_id, $district_name) {
+        if (!isset($_SESSION['super_admin_id'])) {
+            return false;
+        }
+
         $district_id = mysqli_real_escape_string($this->db_conn(), $district_id);
         $district_name = mysqli_real_escape_string($this->db_conn(), $district_name);
-        $created_by = mysqli_real_escape_string($this->db_conn(), $_SESSION['user_id']);
+        $created_by = mysqli_real_escape_string($this->db_conn(), $_SESSION['super_admin_id']);
         $sql = "INSERT INTO district_table (district_id, district_name, created_by)
                 VALUES ('$district_id', '$district_name', '$created_by')";
         return $this->db_query($sql);
@@ -58,7 +64,6 @@ class district_class extends db_connection {
             return $result;
         } catch (Exception $e) {
             mysqli_rollback($this->db_conn());
-            error_log("UpdateDistrictWithId Error: " . $e->getMessage());
             return false;
         }
     }

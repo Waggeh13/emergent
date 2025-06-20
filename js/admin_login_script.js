@@ -1,72 +1,74 @@
-const container = document.querySelector('.container');
-const loginBtn = document.querySelector('.login-btn');
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.container');
+    const loginBtn = document.querySelector('.btn');
+    const loginForm = document.getElementById('loginForm');
 
-loginBtn.addEventListener('click', () => {
-    container.classList.remove('active');
-});
 
-function validation() {
-  document.getElementById("idError").textContent = "";
-  document.getElementById("passwordError").textContent = "";
+    loginBtn.addEventListener('click', () => {
+        container.classList.remove('active');
+    });
 
-  let isValid = true;
+    function validation() {
+        const idError = document.getElementById("idError");
+        const passwordError = document.getElementById("passwordError");
+        idError.textContent = "";
+        passwordError.textContent = "";
 
-  var admin_id = document.getElementById("admin_id").value.trim();
-  var loginPassword = document.getElementById("password").value;
+        let isValid = true;
+        const admin_id = document.getElementById("admin_id").value.trim();
+        const password = document.getElementById("password").value;
 
-  if (!/^[a-zA-Z0-9]+$/.test(admin_id) || admin_id.length < 8) {
-    document.getElementById("idError").textContent = "Invalid user ID (min 8 alphanumeric characters)";
-    isValid = false;
-  }
+        if (!/^[a-zA-Z0-9]+$/.test(admin_id) || admin_id.length < 8) {
+            idError.textContent = "Invalid user ID (min 8 alphanumeric characters)";
+            isValid = false;
+        }
 
-  if (
-    loginPassword.length < 8 ||
-    !/[a-zA-Z]/.test(loginPassword) ||
-    !/\d/.test(loginPassword) ||
-    !/[!@#$%^&*(),.?":{}|<>]/.test(loginPassword)
-  ) {
-    document.getElementById("passwordError").textContent = "Password must be at least 8 characters with letters, numbers, and a special character";
-    isValid = false;
-  }
+        if (
+            password.length < 8 ||
+            !/[a-zA-Z]/.test(password) ||
+            !/\d/.test(password) ||
+            !/[!@#$%^&*(),.?":{}|<>]/.test(password)
+        ) {
+            passwordError.textContent = "Password must be at least 8 characters with letters, numbers, and a special character";
+            isValid = false;
+        }
 
-  return isValid;
-}
+        return isValid;
+    }
 
-document.getElementById('loginForm').addEventListener('submit', async function (event) {
-    event.preventDefault();
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-    document.getElementById("idError").textContent = "";
-    document.getElementById("passwordError").textContent = "";
+        if (validation) {
+            const admin_id = document.getElementById("admin_id").value.trim();
+            const password = document.getElementById("password").value;
 
-    if (validation()) {
-        var admin_id = document.getElementById("admin_id").value;
-        var password = document.getElementById("password").value;
+            try {
+                const response = await fetch('../actions/admin_login_action.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `admin_id=${encodeURIComponent(admin_id)}&password=${encodeURIComponent(password)}`
+                });
 
-        try {
-            const response = await fetch('../actions/admin_login_action.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `admin_id=${encodeURIComponent(admin_id)}&password=${encodeURIComponent(password)}`
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                if (result.error) {
-                    if (result.message.includes("incorrect admin ID")) {
-                        document.getElementById("idError").textContent = result.message;
-                    } else if (result.message.includes("incorrect password")) {
-                        document.getElementById("passwordError").textContent = result.message;
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.error) {
+                        if (result.message.includes("incorrect admin ID")) {
+                            document.getElementById("idError").textContent = result.message;
+                        } else if (result.message.includes("incorrect password")) {
+                            document.getElementById("passwordError").textContent = result.message;
+                        }
+                    } else {
+                        window.location.href = '../view/admin_dashboard.php';
                     }
                 } else {
-                    window.location.href = '../view/admin_dashboard.php';
+                    document.getElementById("idError").textContent = "Server error. Please try again later.";
                 }
-            } else {
-                document.getElementById("idError").textContent = "Server error. Please try again later.";
+            } catch (error) {
+                document.getElementById("idError").textContent = "Network error. Please check your connection.";
             }
-        } catch (error) {
-            document.getElementById("idError").textContent = "Network error. Please check your connection.";
         }
-    }
+    });
 });

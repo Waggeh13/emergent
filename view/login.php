@@ -34,15 +34,17 @@
                 <form id="registerForm" method="POST">
                     <h1>Registration</h1>
                     <div class="input-box">
-                        <input type=text name="phoneNumber" placeholder="Phone Number" required>
+                        <input type=text name="phoneNumber" id="phoneNumber" placeholder="Phone Number" required>
                         <i class="fas fa-phone"></i>
+                        <div id="phoneErrorRegister" class="error-message"></div><br>
                     </div>
                     <div class="input-box">
-                        <input type=password name="password" placeholder="Password" required>
+                        <input type=password name="password" id="password" placeholder="Password" required>
                         <i class="fas fa-lock"></i>
+                        <div id="passwordErrorRegister" class="error-message"></div><br>
                     </div>
                     <div class="input-box">
-                        <input type=password name="cpassword" placeholder="Confirm Password" required>
+                        <input type=password name="cpassword" id="cpassword" placeholder="Confirm Password" required>
                         <i class="fas fa-lock"></i>
                     </div>
                     <button type="submit" class="btn">Register</button>
