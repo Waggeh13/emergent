@@ -38,11 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (jsonResponse.success && jsonResponse.data && Array.isArray(jsonResponse.data)) {
                 renderDistricts(jsonResponse.data);
             } else {
-                console.error('Invalid response format:', jsonResponse);
                 renderDistricts([]);
             }
         } catch (error) {
-            console.error('Error fetching districts:', error, { stack: error.stack });
             districtsTable.innerHTML = `
                 <tr>
                     <td colspan="5" style="text-align: center; padding: 20px;">
@@ -98,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 `;
                 districtsTable.appendChild(row);
             } catch (error) {
-                console.error(`Error fetching amounts for district ${district.district_id}:`, error, { stack: error.stack });
+                console.error(`Error fetching amounts for district ${district.district_id}:`, error);
             }
         }
 
@@ -115,6 +113,8 @@ document.addEventListener('DOMContentLoaded', function () {
         modalTitle.textContent = 'Add New District';
         districtForm.reset();
         currentEditId = null;
+        const originalIdField = document.getElementById('originalDistrictId');
+        if (originalIdField) originalIdField.remove();
         modal.style.display = 'block';
         document.body.classList.add('modal-active');
     }
@@ -132,23 +132,42 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                const responseText = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status}, Response: ${responseText}`);
             }
 
-            const data = await response.json();
-            if (data && data.length > 0) {
-                const district = data[0];
+            const responseText = await response.text();
+            let data;
+            try {
+                data = JSON.parse(responseText);
+            } catch (jsonError) {
+                throw new Error('Server returned invalid JSON: ' + responseText);
+            }
+
+            if (data.success && data.data && data.data.length > 0) {
+                const district = data.data[0];
                 modalTitle.textContent = 'Edit District';
                 document.getElementById('districtId').value = district.district_id;
                 document.getElementById('districtName').value = district.district_name;
                 currentEditId = id;
+
+                let originalIdField = document.getElementById('originalDistrictId');
+                if (!originalIdField) {
+                    originalIdField = document.createElement('input');
+                    originalIdField.type = 'hidden';
+                    originalIdField.id = 'originalDistrictId';
+                    originalIdField.name = 'originalDistrictId';
+                    districtForm.appendChild(originalIdField);
+                }
+                originalIdField.value = district.district_id;
+
                 modal.style.display = 'block';
                 document.body.classList.add('modal-active');
             } else {
-                console.error('District not found:', { district_id: id, response: data });
+                alert(data.message || 'District not found.');
             }
         } catch (error) {
-            console.error('Error loading district data:', error, { stack: error.stack });
+            alert('Error loading district data: ' + error.message);
         }
     }
 
@@ -167,9 +186,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const form = document.getElementById('districtForm');
         const formData = new FormData(form);
+        const actionUrl = currentEditId ? '../actions/edit_district.php' : '../actions/add_district.php';
 
         try {
-            const response = await fetch('../actions/add_district.php', {
+            const response = await fetch(actionUrl, {
                 method: 'POST',
                 body: formData,
             });
@@ -179,17 +199,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error(`HTTP error! Status: ${response.status}, Response: ${responseText}`);
             }
 
-            const data = await response.json();
+            const responseText = await response.text();
+            let data;
+            try {
+                data = JSON.parse(responseText);
+            } catch (jsonError) {
+                throw new Error('Server returned invalid JSON: ' + responseText);
+            }
 
             if (data.success) {
                 closeModal();
                 fetchDistricts();
+                alert('District saved successfully.');
             } else {
-                console.error('Failed to save district:', data.message);
-                form.reset();
+                alert(data.message || 'Failed to save district.');
+                if (!currentEditId) form.reset();
             }
         } catch (error) {
-            console.error('Error submitting form:', error, { stack: error.stack });
+            alert('Error submitting form: ' + error.message);
         }
     }
 
@@ -211,18 +238,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    const responseText = await response.text();
+                    throw new Error(`HTTP error! Status: ${response.status}, Response: ${responseText}`);
                 }
 
-                const data = await response.json();
+                const responseText = await response.text();
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                } catch (jsonError) {
+                    throw new Error('Server returned invalid JSON: ' + responseText);
+                }
 
                 if (data.success) {
                     fetchDistricts();
+                    alert('District deleted successfully.');
                 } else {
-                    console.error('Failed to delete district:', data.message);
+                    alert(data.message || 'Failed to delete district.');
                 }
             } catch (error) {
-                console.error('Error deleting district:', error, { stack: error.stack });
+                alert('Error deleting district: ' + error.message);
             } finally {
                 deleteConfirmModal.style.display = 'none';
                 document.body.classList.remove('modal-active');

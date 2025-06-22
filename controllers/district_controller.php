@@ -11,6 +11,12 @@ function viewdistrictsController() {
     return $result !== false ? $result : [];
 }
 
+function viewdistrictController($districtId) {
+    $district = new district_class();
+    $result = $district->getdistrictsbyID($districtId);
+    return $result !== false ? $result : [];
+}
+
 function district_exists_ctr($district_id) {
     $district = new district_class();
     $result = $district->district_ID_exists($district_id);

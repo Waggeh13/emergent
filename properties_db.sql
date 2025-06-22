@@ -12,18 +12,21 @@ CREATE TABLE district_table (
     district_id VARCHAR(50) NOT NULL PRIMARY KEY,
     district_name VARCHAR(50) NOT NULL,
     created_by VARCHAR(50) NOT NULL,
-    FOREIGN KEY (created_by) REFERENCES superadmin_table(superadmin_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES superadmin_table(superadmin_id) ON DELETE CASCADE ON UPDATE CASCADE,
     UNIQUE (district_name)
 );
 
 -- Admin Table
 CREATE TABLE admin_table (
     admin_id VARCHAR(50) NOT NULL PRIMARY KEY,
+    fullname VARCHAR(50) NOT NULL,
+    email VARCHAR(50),
     password VARCHAR(255) NOT NULL,
     district_id VARCHAR(50) NOT NULL,
+    Status ENUM ('Active', 'Inactive') NOT NULL,
     created_by VARCHAR(50) NOT NULL,
-    FOREIGN KEY (district_id) REFERENCES district_table(district_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY (created_by) REFERENCES superadmin_table(superadmin_id) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (district_id) REFERENCES district_table(district_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES superadmin_table(superadmin_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Properties Table
@@ -43,8 +46,8 @@ CREATE TABLE properties (
     billing_cycle ENUM ('Annual', 'Quarterly') NOT NULL,
     district_id VARCHAR(50) NOT NULL,
     created_by VARCHAR(50) NOT NULL,
-    FOREIGN KEY (district_id) REFERENCES district_table(district_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY (created_by) REFERENCES admin_table(admin_id) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (district_id) REFERENCES district_table(district_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES admin_table(admin_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Users Table

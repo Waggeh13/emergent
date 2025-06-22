@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once("../settings/db_class.php");
 
 class district_class extends db_connection {

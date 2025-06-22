@@ -1,17 +1,17 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const addAdminBtn = document.getElementById('addAdminBtn');
     const modal = document.getElementById('adminModal');
-    const closeBtn = document.querySelector('.close');
+    const closeBtn = modal.querySelector('.close');
     const adminForm = document.getElementById('adminForm');
     const adminsTable = document.querySelector('.districts-table tbody');
     const modalTitle = document.getElementById('modalTitle');
     const deleteConfirmModal = document.getElementById('deleteConfirmModal');
     const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
     const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+    const adminDistrictSelect = document.getElementById('adminDistrict');
 
     let currentEditId = null;
     let deleteTargetId = null;
-    let admins = [];
 
     addAdminBtn.addEventListener('click', openAddModal);
     closeBtn.addEventListener('click', closeModal);
@@ -20,12 +20,103 @@ document.addEventListener('DOMContentLoaded', function () {
     confirmDeleteBtn.addEventListener('click', confirmDelete);
     cancelDeleteBtn.addEventListener('click', cancelDelete);
 
-    renderAdmins();
+    await fetchDistricts(); // Populate district dropdown
+    fetchAdmins();
 
-    function renderAdmins() {
+    async function fetchDistricts() {
+        try {
+            const response = await fetch('../actions/view_districts.php', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const responseText = await response.text();
+            let data;
+            try {
+                const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    data = JSON.parse(jsonMatch[0]);
+                } else {
+                    throw new Error('No valid JSON found in response');
+                }
+            } catch (jsonError) {
+                console.error('Invalid JSON response:', responseText);
+                throw new Error('Server returned invalid JSON: ' + responseText);
+            }
+
+            if (data.success && data.data && Array.isArray(data.data)) {
+                adminDistrictSelect.innerHTML = '<option value="">Select District</option>';
+                data.data.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district.district_id;
+                    option.textContent = district.district_name;
+                    adminDistrictSelect.appendChild(option);
+                });
+            } else {
+                console.error('Invalid district response:', data);
+                adminDistrictSelect.innerHTML = '<option value="">No districts available</option>';
+            }
+        } catch (error) {
+            console.error('Error fetching districts:', error, { stack: error.stack });
+            adminDistrictSelect.innerHTML = '<option value="">Error loading districts</option>';
+        }
+    }
+
+    async function fetchAdmins() {
+        try {
+            const response = await fetch('../actions/view_admins.php', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const responseText = await response.text();
+            let jsonResponse;
+            try {
+                const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    jsonResponse = JSON.parse(jsonMatch[0]);
+                } else {
+                    throw new Error('No valid JSON found in response');
+                }
+            } catch (jsonError) {
+                console.error('Invalid JSON response:', responseText);
+                throw new Error('Server returned invalid JSON: ' + responseText);
+            }
+
+            if (jsonResponse.success && jsonResponse.data && Array.isArray(jsonResponse.data)) {
+                renderAdmins(jsonResponse.data);
+            } else {
+                console.error('Invalid response format:', jsonResponse);
+                renderAdmins([]);
+            }
+        } catch (error) {
+            console.error('Error fetching admins:', error, { stack: error.stack });
+            adminsTable.innerHTML = `
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 20px;">
+                        Error loading admins. Please try again.
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    function renderAdmins(admins) {
         adminsTable.innerHTML = '';
 
-        if (admins.length === 0) {
+        if (!admins || admins.length === 0) {
             adminsTable.innerHTML = `
                 <tr>
                     <td colspan="6" style="text-align: center; padding: 20px;">
@@ -39,13 +130,14 @@ document.addEventListener('DOMContentLoaded', function () {
         admins.forEach(admin => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${admin.name}</td>
+                <td>${admin.admin_id}</td>
+                <td>${admin.fullname}</td>
                 <td>${admin.email}</td>
-                <td>${admin.district}</td>
-                <td>${admin.status}</td>
+                <td>${admin.district_id}</td>
+                <td>${admin.Status}</td>
                 <td class="actions">
-                    <button class="btn-edit" data-id="${admin.id}"><i class="fas fa-edit"></i></button>
-                    <button class="btn-delete" data-id="${admin.id}"><i class="fas fa-trash"></i></button>
+                    <button class="btn-edit" data-id="${admin.admin_id}"><i class="fas fa-edit"></i></button>
+                    <button class="btn-delete" data-id="${admin.admin_id}"><i class="fas fa-trash"></i></button>
                 </td>
             `;
             adminsTable.appendChild(row);
@@ -63,25 +155,77 @@ document.addEventListener('DOMContentLoaded', function () {
     function openAddModal() {
         modalTitle.textContent = 'Add New Admin';
         adminForm.reset();
+        document.getElementById('adminID').value = '';
         currentEditId = null;
+        // Remove originalAdminID field if it exists
+        const originalIdField = document.getElementById('originalAdminID');
+        if (originalIdField) originalIdField.remove();
         modal.style.display = 'block';
         document.body.classList.add('modal-active');
     }
 
-    function openEditModal(e) {
-        const id = parseInt(e.currentTarget.getAttribute('data-id'));
-        const admin = admins.find(a => a.id === id);
+    async function openEditModal(e) {
+        const id = e.currentTarget.getAttribute('data-id');
+        
+        try {
+            const response = await fetch('../actions/view_admin.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `admin_id=${encodeURIComponent(id)}`,
+            });
 
-        if (admin) {
-            modalTitle.textContent = 'Edit Admin';
-            document.getElementById('adminName').value = admin.name;
-            document.getElementById('adminEmail').value = admin.email;
-            document.getElementById('adminDistrict').value = admin.district;
-            document.getElementById('adminStatus').value = admin.status;
-            // Only show password field on Add (you can optionally hide it here)
-            currentEditId = id;
-            modal.style.display = 'block';
-            document.body.classList.add('modal-active');
+            if (!response.ok) {
+                const responseText = await response.text();
+                console.error('Fetch error response:', responseText);
+                throw new Error(`HTTP error! Status: ${response.status}, Response: ${responseText}`);
+            }
+
+            const responseText = await response.text();
+            let data;
+            try {
+                const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    data = JSON.parse(jsonMatch[0]);
+                } else {
+                    throw new Error('No valid JSON found in response');
+                }
+            } catch (jsonError) {
+                console.error('Invalid JSON response:', responseText);
+                throw new Error('Server returned invalid JSON: ' + responseText);
+            }
+
+            if (data.success && data.data && data.data.length > 0) {
+                const admin = data.data[0];
+                modalTitle.textContent = 'Edit Admin';
+                document.getElementById('adminID').value = admin.admin_id;
+                document.getElementById('adminName').value = admin.fullname;
+                document.getElementById('adminEmail').value = admin.email;
+                document.getElementById('adminDistrict').value = admin.district_id;
+                document.getElementById('adminStatus').value = admin.Status;
+                currentEditId = id;
+
+                // Add hidden input for original admin ID
+                let originalIdField = document.getElementById('originalAdminID');
+                if (!originalIdField) {
+                    originalIdField = document.createElement('input');
+                    originalIdField.type = 'hidden';
+                    originalIdField.id = 'originalAdminID';
+                    originalIdField.name = 'originalAdminID';
+                    adminForm.appendChild(originalIdField);
+                }
+                originalIdField.value = admin.admin_id;
+
+                modal.style.display = 'block';
+                document.body.classList.add('modal-active');
+            } else {
+                console.error('Admin not found:', { admin_id: id, response: data });
+                alert(data.message || 'Admin not found.');
+            }
+        } catch (error) {
+            console.error('Error loading admin data:', error, { stack: error.stack });
+            alert('Error loading admin data: ' + error.message);
         }
     }
 
@@ -91,62 +235,111 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function outsideClick(e) {
-        if (e.target === modal) {
-            closeModal();
-        }
-        if (e.target === deleteConfirmModal) {
-            cancelDelete();
-        }
+        if (e.target === modal) closeModal();
+        if (e.target === deleteConfirmModal) cancelDelete();
     }
 
-    function handleFormSubmit(e) {
+    async function handleFormSubmit(e) {
         e.preventDefault();
 
-        const name = document.getElementById('adminName').value;
-        const email = document.getElementById('adminEmail').value;
-        const district = document.getElementById('adminDistrict').value;
-        const status = document.getElementById('adminStatus').value;
+        const form = document.getElementById('adminForm');
+        const formData = new FormData(form);
+        const actionUrl = currentEditId ? '../actions/edit_admin.php' : '../actions/add_admin.php';
 
-        if (currentEditId) {
-            const index = admins.findIndex(a => a.id === currentEditId);
-            if (index !== -1) {
-                admins[index] = {
-                    id: currentEditId,
-                    name,
-                    email,
-                    district,
-                    status
-                };
-            }
-        } else {
-            const newId = admins.length > 0 ? Math.max(...admins.map(a => a.id)) + 1 : 1;
-            admins.push({
-                id: newId,
-                name,
-                email,
-                district,
-                status
+        try {
+            const response = await fetch(actionUrl, {
+                method: 'POST',
+                body: formData,
             });
-        }
 
-        renderAdmins();
-        closeModal();
+            if (!response.ok) {
+                const responseText = await response.text();
+                console.error('Fetch error response:', responseText);
+                throw new Error(`HTTP error! Status: ${response.status}, Response: ${responseText}`);
+            }
+
+            const responseText = await response.text();
+            let data;
+            try {
+                const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    data = JSON.parse(jsonMatch[0]);
+                } else {
+                    throw new Error('No valid JSON found in response');
+                }
+            } catch (jsonError) {
+                console.error('Invalid JSON response:', responseText);
+                throw new Error('Server returned invalid JSON: ' + responseText);
+            }
+
+            if (data.success) {
+                closeModal();
+                fetchAdmins();
+                alert('Admin saved successfully.');
+            } else {
+                console.error('Failed to save admin:', data.message);
+                alert(data.message || 'Failed to save admin.');
+                if (!currentEditId) form.reset();
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error, { stack: error.stack });
+            alert('Error submitting form: ' + error.message);
+        }
     }
 
     function openDeleteModal(e) {
-        deleteTargetId = parseInt(e.currentTarget.getAttribute('data-id'));
+        deleteTargetId = e.currentTarget.getAttribute('data-id');
         deleteConfirmModal.style.display = 'block';
         document.body.classList.add('modal-active');
     }
 
-    function confirmDelete() {
-        if (deleteTargetId !== null) {
-            admins = admins.filter(a => a.id !== deleteTargetId);
-            renderAdmins();
-            deleteTargetId = null;
+    async function confirmDelete() {
+        if (deleteTargetId) {
+            try {
+                const response = await fetch('../actions/delete_admin.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `admin_id=${encodeURIComponent(deleteTargetId)}`,
+                });
+
+                if (!response.ok) {
+                    const responseText = await response.text();
+                    console.error('Fetch error response:', responseText);
+                    throw new Error(`HTTP error! Status: ${response.status}, Response: ${responseText}`);
+                }
+
+                const responseText = await response.text();
+                let data;
+                try {
+                    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                    if (jsonMatch) {
+                        data = JSON.parse(jsonMatch[0]);
+                    } else {
+                        throw new Error('No valid JSON found in response');
+                    }
+                } catch (jsonError) {
+                    console.error('Invalid JSON response:', responseText);
+                    throw new Error('Server returned invalid JSON: ' + responseText);
+                }
+
+                if (data.success) {
+                    fetchAdmins();
+                    alert('Admin deleted successfully.');
+                } else {
+                    console.error('Failed to delete admin:', data.message);
+                    alert(data.message || 'Failed to delete admin.');
+                }
+            } catch (error) {
+                console.error('Error deleting admin:', error, { stack: error.stack });
+                alert('Error deleting admin: ' + error.message);
+            } finally {
+                deleteConfirmModal.style.display = 'none';
+                document.body.classList.remove('modal-active');
+                deleteTargetId = null;
+            }
         }
-        deleteConfirmModal.style.display = 'none';
-        document.body.classList.remove('modal-active');
     }
 
     function cancelDelete() {

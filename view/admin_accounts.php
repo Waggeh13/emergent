@@ -55,6 +55,7 @@
         <table class="districts-table">
           <thead>
             <tr>
+              <th>ID</th>
               <th>Name</th>
               <th>Email</th>
               <th>District</th>
@@ -78,6 +79,10 @@
       <span class="close">&times;</span>
       <h3 id="modalTitle">Add New Admin</h3>
       <form id="adminForm">
+        <div class="form-group">
+          <label for="adminID">ID</label>
+          <input type="text" name="adminID" id="adminID" required />
+        </div>
         <div class="form-group">
           <label for="adminName">Full Name</label>
           <input type="text" name="adminName" id="adminName" required />
