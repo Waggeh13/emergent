@@ -4,6 +4,7 @@ table {
     border-collapse: collapse;
     margin-left: 90px;
     margin-top: 40px;
+    background: #ffffff;
 }
 
 th, td {
@@ -14,5 +15,17 @@ th, td {
 }
 
 thead tr {
-    background: #dddddd;
+    background: #c0c0f7;
+}
+
+thead tr th:first-child {
+    border-top-left-radius: 10px;
+}
+
+thead tr th:last-child {
+    border-top-right-radius: 10px;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9ff;
 }

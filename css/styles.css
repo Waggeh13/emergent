@@ -29,8 +29,7 @@ body {
     top: 0;
     left: 200px;
     z-index: 1000;
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #dddddd;
+    background-color: #ffffff;
 }
 
 .topbar h1 {
@@ -147,13 +146,12 @@ body {
 
 .sidebar {
     width: 200px;
-    border-right: 1px solid #dddddd;
     padding: 30px;
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
-    background-color: f5f5f5;
+    background-color: #c0c0f7;
     z-index: 1000;
 }
 
@@ -203,19 +201,24 @@ body {
 }
 
 .card {
-    border: 1px solid #dddddd;
     border-radius: 8px;
     padding: 20px;
     text-align: center;
     justify-content: center;
     min-width: 250px;
+    background-color: #ffffff;
 }
 
 .card h3 {
     font-size: 16px;
-    color: #333;
+    color: #5d6af6;
     margin-bottom: 10px;
-    font-weight: 400;
+    font-weight: 500;
+}
+
+.stats-cards .icon {
+    font-size: 22px;
+    color: #5d6af6; 
 }
 
 .card p {
@@ -224,7 +227,7 @@ body {
 }
 
 .chart-section {
-    border: 1px solid #dddddd;
+    background: #ffffff;
     border-radius: 8px;
     padding: 20px;
     margin-left: 125px;
@@ -243,6 +246,7 @@ body {
 }
 
 .activity-section {
+    background: #ffffff;
     border-radius: 8px;
     padding: 20px;
     margin-left: 125px;

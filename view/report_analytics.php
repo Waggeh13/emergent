@@ -16,7 +16,7 @@
             <h1 class="logo">LOGO</h1>
             <nav class="main-nav">
                 <ul>
-                <li><a href="admin_dashboard.php"><i class="fas fa-tachometer-alt"></i> Overview</a></li>
+                <li><a href="super_admin_dashboard.php"><i class="fas fa-tachometer-alt"></i> Overview</a></li>
                 <li><a href="district_management.php"><i class="fas fa-map-marked-alt"></i> District Management</a></li>
                 <li><a href="admin_accounts.php"><i class="fas fa-user-shield"></i> Admin Accounts</a></li>
                 <li><a href="report_analytics.php"><i class="fas fa-chart-line"></i> Reports & Analytics</a></li>
@@ -51,29 +51,30 @@
 
             <div class="metrics-grid">
                 <div class="metrics-card">
-                    <h3>Total Properties Billed</h3>
+                    <h3><i class="fas fa-file-invoice-dollar"></i> Total Properties Billed</h3>
                     <div class="metric-value">10,000</div>
                 </div>
                 <div class="metrics-card">
-                    <h3>Total Payments</h3>
-                    <div class="metric-value">500,000</div>
+                    <h3><i class="fas fa-hand-holding-usd"></i> Total Payments</h3>
+                    <div class="metric-value">₵500,000</div>
                 </div>
                 <div class="metrics-card">
-                    <h3>Paid Properties</h3>
+                    <h3><i class="fas fa-check-circle"></i> Paid Properties</h3>
                     <div class="metric-value">7,200 <span class="percentage">(72%)</span></div>
                 </div>
                 <div class="metrics-card">
-                    <h3>Unpaid Properties</h3>
-                    <div class="metric-value">2,800 <span class="percentage">(28%)</div>
+                    <h3><i class="fas fa-times-circle"></i> Unpaid Properties</h3>
+                    <div class="metric-value">2,800 <span class="percentage">(28%)</span></div>
                 </div>
             </div>
 
-            <div class="section>">
+            
+            <section class="chart-section">
                 <h2>Payment Status Visualization</h2>
-                <div class="chart">
+                <div class="chart-container">
                     <canvas id="districtBarChart" width="900" height="300"></canvas>
                 </div>
-            </div>
+            </section>
 
             <div class="section">
                 <h2>District-Level Breakdown</h2>
@@ -95,6 +96,5 @@
         </div> 
     </div>
     <script src="../js/reports.js"></script>
-    <script src="../js/script.js"></script>
 </body>
 </html>

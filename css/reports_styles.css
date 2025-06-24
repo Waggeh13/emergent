@@ -4,21 +4,27 @@
     gap: 20px;
     margin-bottom: 30px;
     padding-top: 30px;
-    padding-left: 230px;
+    padding-left: 200px;
 }
 
 .metrics-card {
-    background: none;
+    background: #ffffff;
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #dddddd;
 }
 
 .metrics-card h3 {
-    font-weight: 400;
+    font-weight: 500;
     font-size: 16px;
     margin-bottom: 10px;
+    color: #5d6af6;
 }
+
+.metrics-card h3 i {
+    color: #4e5be6; 
+    margin-right: 8px;
+}
+
 
 .metric-value {
     font-size: 24px;
@@ -28,6 +34,17 @@
 .percentage {
     font-size: 16px;
     font-weight: 400;
+    color: #5d6af6;
+}
+
+.chart-section {
+    background-color: white;
+    padding: 30px;
+    border-radius: 16px;
+    margin-top: 50px;
+    margin-left: 100px; 
+    padding-left: 100px;
+    width: 96%;     
 }
 
 .chart {
@@ -45,12 +62,13 @@ table {
     border-radius: 8px;
     overflow: hidden;
     margin-left: 100px;
+    background-color: #ffffff;
 }
 
 th {
     padding: 12px 15px;
     text-align: left;
-    background: #dddddd;
+    background: #c0c0f7;
     font-weight: 500;
 }
 
@@ -58,4 +76,12 @@ td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9ff;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #ffffff;
 }

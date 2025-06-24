@@ -16,7 +16,7 @@
             <h1 class="logo">LOGO</h1>
             <nav class="main-nav">
                 <ul>
-                <li class="active"><a href="admin_dashboard.php"><i class="fas fa-tachometer-alt"></i> Overview</a></li>
+                <li class="active"><a href="super_admin_dashboard.php"><i class="fas fa-tachometer-alt"></i> Overview</a></li>
                 <li><a href="district_management.php"><i class="fas fa-map-marked-alt"></i> District Management</a></li>
                 <li><a href="admin_accounts.php"><i class="fas fa-user-shield"></i> Admin Accounts</a></li>
                 <li><a href="report_analytics.php"><i class="fas fa-chart-line"></i> Reports & Analytics</a></li>
@@ -102,6 +102,7 @@
     </div>
     
     <script src="../js/add_district_modal.js"></script>
+    <script src="../js/script.js"></script>
     
 </body>
 </html>

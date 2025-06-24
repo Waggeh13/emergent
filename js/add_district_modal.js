@@ -271,4 +271,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.remove('modal-active');
         deleteTargetId = null;
     }
+
 });
+
