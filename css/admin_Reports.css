@@ -31,12 +31,21 @@ h2 {
 }
 
 .summary-cards .card h3 {
-  font-size: 20px;
+  font-size: 24px;
   margin: 8px 0 0;
+  color: #333;
+  font-weight: bold;
+}
+
+.summary-cards .card p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #09a0be;
 }
 
 .summary-cards .card span {
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 500;
   color: #09a0be;
 }
 
