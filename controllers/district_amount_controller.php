@@ -1,8 +1,10 @@
 <?php
 require("../classes/district_amount_class.php");
 
-function sanitize_input($input) {
-    return htmlspecialchars(stripslashes(trim($input)));
+if (!function_exists('sanitize_input')) {
+    function sanitize_input($input) {
+        return htmlspecialchars(stripslashes(trim($input)));
+    }
 }
 
 function calculateDistrictAmountsController($district_id) {

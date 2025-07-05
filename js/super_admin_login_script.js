@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginBtn = document.querySelector('.btn');
     const loginForm = document.getElementById('loginForm');
 
-    // Toggle container class on login button click
     loginBtn.addEventListener('click', () => {
         container.classList.remove('active');
     });
@@ -57,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (result.error) {
                         if (result.message.includes("incorrect ID")) {
                             document.getElementById("idError").textContent = result.message;
-                        } else if (result.message.includes("incorrect password")) {
+                        } else if (result.message.includes("Incorrect password")) {
                             document.getElementById("passwordError").textContent = result.message;
                         }
                     } else {

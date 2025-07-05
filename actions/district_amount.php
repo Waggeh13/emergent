@@ -16,8 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($amounts !== false) {
         $response["success"] = true;
-        $response["total_paid"] = $amounts['total_paid'];
-        $response["total_owed"] = $amounts['total_owed'];
+        // Ensure values are sent as strings to preserve precision
+        $response["total_paid"] = number_format($amounts['total_paid'], 2, '.', '');
+        $response["total_owed"] = number_format($amounts['total_owed'], 2, '.', '');
     } else {
         $response["message"] = "Error calculating district amounts.";
     }

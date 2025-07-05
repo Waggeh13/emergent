@@ -15,9 +15,10 @@ class DistrictAmountClass extends db_connection {
         $result = $this->db_fetch_one($sql);
         
         if ($result) {
+            // Use string to preserve precision, as DECIMAL is returned as string
             return [
-                'total_paid' => floatval($result['total_paid']),
-                'total_owed' => floatval($result['total_owed'])
+                'total_paid' => $result['total_paid'],
+                'total_owed' => $result['total_owed']
             ];
         }
         

@@ -1,12 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.container');
-    const loginBtn = document.querySelector('.btn');
     const loginForm = document.getElementById('loginForm');
-
-
-    loginBtn.addEventListener('click', () => {
-        container.classList.remove('active');
-    });
 
     function validation() {
         const idError = document.getElementById("idError");
@@ -39,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        if (validation) {
+        if (validation()) {
             const admin_id = document.getElementById("admin_id").value.trim();
             const password = document.getElementById("password").value;
 
@@ -54,10 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     const result = await response.json();
+
                     if (result.error) {
                         if (result.message.includes("incorrect admin ID")) {
                             document.getElementById("idError").textContent = result.message;
-                        } else if (result.message.includes("incorrect password")) {
+                        } else if (result.message.includes("Incorrect password")) {
                             document.getElementById("passwordError").textContent = result.message;
                         }
                     } else {

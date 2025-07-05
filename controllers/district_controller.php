@@ -1,9 +1,12 @@
 <?php
 require("../classes/district_class.php");
 
-function sanitize_input($input) {
-    return htmlspecialchars(stripslashes(trim($input)));
+if (!function_exists('sanitize_input')) {
+    function sanitize_input($input) {
+        return htmlspecialchars(stripslashes(trim($input)));
+    }
 }
+
 
 function viewdistrictsController() {
     $districts = new district_class();
