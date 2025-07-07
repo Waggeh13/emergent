@@ -8,6 +8,8 @@
     <title>Super Admin Login</title>
 </head>
 <body>
+    <img src="../assets/emergent logo2.jpg" alt="Emergent Logo" class="login-logo">
+    
     <div class="container">
         <div class="form-box login">
             <form id="loginForm" method="POST">

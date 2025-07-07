@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dasboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/reports_styles.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/super_admin_settings.css">
 </head>
-
 <body>
     <div class="dashboard-container">
         <div class="sidebar">
@@ -53,54 +52,29 @@
                     </div>
                 </div>
             </div>
-
-            <div class="metrics-grid">
-                <div class="metrics-card">
-                    <h3><i class="fas fa-file-invoice-dollar"></i> Total Properties Billed</h3>
-                    <div class="metric-value">10,000</div>
+        </div>
+        <div class="settings-content">
+            <h2>Change Password</h2>
+            <form id="changePasswordForm">
+                <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" required>
                 </div>
-                <div class="metrics-card">
-                    <h3><i class="fas fa-hand-holding-usd"></i> Total Payments</h3>
-                    <div class="metric-value">₵500,000</div>
+                <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" required>
                 </div>
-                <div class="metrics-card">
-                    <h3><i class="fas fa-check-circle"></i> Paid Properties</h3>
-                    <div class="metric-value">7,200 <span class="percentage">(72%)</span></div>
+                <div class="form-group">
+                <label for="confirmPassword">Confirm New Password</label>
+                <input type="password" id="confirmPassword" required>
                 </div>
-                <div class="metrics-card">
-                    <h3><i class="fas fa-times-circle"></i> Unpaid Properties</h3>
-                    <div class="metric-value">2,800 <span class="percentage">(28%)</span></div>
-                </div>
-            </div>
-
-            
-            <section class="chart-section">
-                <h2>Payment Status Visualization</h2>
-                <div class="chart-container">
-                    <canvas id="districtBarChart" width="900" height="300"></canvas>
-                </div>
-            </section>
-
-            <div class="section">
-                <h2>District-Level Breakdown</h2>
-                <table id="district-table">
-                    <thead>
-                        <tr>
-                            <th>District</th>
-                            <th>Total Billed</th>
-                            <th>Paid</th>
-                            <th>Unpaid</th>
-                            <th>% Paid</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!--populated here-->
-                    </tbody>
-                </table>
-            </div>
-        </div> 
+                <div id="passwordError" class="error-message"></div>
+                <button type="submit" class="btn-save">Save Changes</button>
+            </form>
+        </div>
+        </div>
     </div>
-    <script src="../js/reports.js"></script>
-    <script src="../js/script.js"></script>
+
+    <script src="../js/admin_script.js"></script>
 </body>
 </html>

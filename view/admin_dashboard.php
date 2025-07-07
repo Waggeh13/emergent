@@ -20,13 +20,11 @@
                 <li><a href="admin_properties.php"><i class="fas fa-building"></i> <span class="link-text">Property Management</span></a></li>
                 <li><a href="admin_billing.php"><i class="fas fa-file-invoice-dollar"></i> <span class="link-text">Billing Management</span></a></li>
                 <li><a href="admin_reports_analytics.php"><i class="fas fa-chart-bar"></i> <span class="link-text">Reports & Analytics</span></a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> <span class="link-text">Settings</span></a></li>
+                <li><a href="admin_settings.php"><i class="fas fa-cog"></i> <span class="link-text">Settings</span></a></li>
                 <li><a href="admin_login.php"><i class="fas fa-sign-out-alt"></i> <span class="link-text">Logout</span></a></li>
                 </ul>
             </nav>
         </div>
-
-
 
         <div class="main-content">
 
