@@ -6,7 +6,7 @@
     padding: 8px 12px;
     gap: 10px;
     margin-top: 30px;
-    margin-left: 38px;
+    margin-right: 40px;
     max-width: 140px;
     transition: 0.3s;
 }
@@ -17,12 +17,11 @@
 }
 
 .table-container {
-    width: 150%;
+    width: 75vw;
     border-radius: 8px;
     padding: 20px;
     overflow-x: auto;
     margin-top: 30px;
-    margin-left: 150px;
 }
 
 .modal-active .table-container {

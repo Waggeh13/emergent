@@ -35,6 +35,12 @@ body {
   width: var(--sidebar-width-expanded);
 }
 
+.menu-item.active {
+  background: #cfd1ed;
+  color: #4e5be6;
+}
+
+
 .logo {
   padding: 20px 0;
   text-align: center;
@@ -271,6 +277,11 @@ body {
   font-weight: 500;
 }
 
+.card p {
+  font-weight: bold;
+  font-size: 24px;
+}
+
 .card .value {
   font-size: 30px;
   font-weight: bold;
@@ -288,9 +299,12 @@ body {
   padding: 20px;
   margin-top: 20px;
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
   position: relative;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
+
 
 .chart-container {
   width: 100%;
@@ -298,9 +312,11 @@ body {
 }
 
 .chart-container canvas {
-  width: 100% !important;
-  height: 100% !important;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
+
 
 .activity-section {
   background: white;

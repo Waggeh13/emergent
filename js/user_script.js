@@ -27,9 +27,8 @@ const momoFields = document.getElementById("mobileMoneyFields");
 const cardFields = document.getElementById("cardFields");
 const propertySelect = document.getElementById("propertySelect");
 
-// Populate property dropdown dynamically
 const propertySet = new Set(historyData.map(item => item.property));
-propertySelect.innerHTML = ""; // Clear previous content
+propertySelect.innerHTML = "";
 
 const allOption = document.createElement("option");
 allOption.value = "all";
@@ -43,7 +42,6 @@ propertySet.forEach(property => {
   propertySelect.appendChild(option);
 });
 
-// Render payment history
 historyData.forEach(item => {
   const div = document.createElement("div");
   div.className = "history-item";
@@ -78,15 +76,19 @@ document.addEventListener('DOMContentLoaded', function () {
   const openBtn = document.getElementById('payNowBtn');
   const closeBtn = document.getElementById('closeModal');
 
-  openBtn.addEventListener('click', () => {
-    resetFields();
-    modal.style.display = 'flex';
-  });
+  if (openBtn) {
+    openBtn.addEventListener('click', () => {
+      resetFields();
+      modal.style.display = 'flex';
+    });
+  }
 
-  closeBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-    resetFields();
-  });
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+      resetFields();
+    });
+  }
 
   window.addEventListener('click', (e) => {
     if (e.target === modal) {
@@ -130,4 +132,16 @@ document.addEventListener('DOMContentLoaded', function () {
     cardFields.classList.add("hidden");
     propertySelect.value = "all";
   }
+  
+  const currentPath = window.location.pathname.split('/').pop().split('?')[0];
+  const menuItems = document.querySelectorAll('.sidebar-menu .menu-item');
+
+  menuItems.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && href.includes(currentPath)) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
 });

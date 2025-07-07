@@ -10,11 +10,7 @@ require_once('../controllers/district_amount_controller.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>Superadmin Dashboard</title>
-=======
     <title>Dashboard</title>
->>>>>>> 54a47445d08f466bbdcf790f39dbc8c7e6bfe413
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css">
@@ -36,6 +32,7 @@ require_once('../controllers/district_amount_controller.php');
                     <li><a href="report_analytics.php"><i class="fas fa-chart-line"></i> <span class="link-text">Reports & Analytics</span></a></li>
                     <li><a href="activity_log.php"><i class="fas fa-clipboard-list"></i> <span class="link-text">Activity Logs</span></a></li>
                     <li><a href="super_admin_settings.php"><i class="fas fa-cog"></i> <span class="link-text">Settings</span></a></li>
+                    <li><a href="super_admin_login.php"><i class="fas fa-sign-out-alt"></i> <span class="link-text">Logout</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -107,9 +104,6 @@ require_once('../controllers/district_amount_controller.php');
                         <i class="fas fa-coins icon"></i>
                         <h3>Total Collected</h3>
                     </div>
-<<<<<<< HEAD
-                    <p>GH₵678900</p>
-=======
                     <p>
                         <?php
                         $total_paid = 0;
@@ -122,22 +116,12 @@ require_once('../controllers/district_amount_controller.php');
                         echo '₵' . number_format($total_paid, 2);
                         ?>
                     </p>
->>>>>>> 54a47445d08f466bbdcf790f39dbc8c7e6bfe413
                 </div>
             </section>
 
             <section class="chart-section">
                 <h2>Top 10 Districts by Total Paid</h2>
                 <div class="chart-container">
-<<<<<<< HEAD
-                    <canvas id="trendChart"></canvas>
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <script src="../js/script.js"></script>
-=======
                     <canvas id="districtChart"></canvas>
                 </div>
             </section>
@@ -171,6 +155,6 @@ require_once('../controllers/district_amount_controller.php');
         </div> 
     </div>
     <script src="../js/dashboard.js"></script>
->>>>>>> 54a47445d08f466bbdcf790f39dbc8c7e6bfe413
+    <script src="../js/script.js"></script>
 </body>
 </html>

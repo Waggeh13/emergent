@@ -20,12 +20,12 @@
 }
 
 .atable-container {
-    width: 150%;
+    width: 75vw;
     border-radius: 8px;
     padding: 20px;
     overflow-x: auto;
     margin-top: 30px;
-    margin-left: 150px;
+    margin-left: 5px;
 }
 
 .admin-table {

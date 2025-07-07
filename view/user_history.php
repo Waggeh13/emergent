@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Payment History | Emergent</title>
+  <title>Payment History</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
   <link rel="stylesheet" href="../css/payment_history.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -29,7 +29,7 @@
       <div class="page-title">Payment History</div>
       <div class="user-profile">
         <div class="profile-icon"><i class="fas fa-user-circle"></i></div>
-        <span class="admin-name"><U>sername</U></span>
+        <span class="admin-name" style="text-decoration: none;"><U>user name</U></span>
         <i class="fas fa-chevron-down dropdown-arrow"></i>
         <div class="dropdown-menu">
           <a href="login.php"><i class="fas fa-sign-out-alt"></i> Logout</a>

@@ -16,27 +16,13 @@
       </a>
     </div>
     <div class="sidebar-menu">
-      <a href="user_dashboard.php" class="menu-item">
-        <i class="fas fa-home"></i>
-        <span>Dashboard</span>
-      </a>
-      <a href="user_billing.php" class="menu-item">
-        <i class="fas fa-file-invoice-dollar"></i>
-        <span>Bills</span>
-      </a>
-      <a href="user_history.php" class="menu-item active">
-        <i class="fas fa-history"></i>
-        <span>Payment History</span>
-      </a>
-      <a href="user_settings.php" class="menu-item">
-        <i class="fas fa-cog"></i>
-        <span>Settings</span>
-      </a>
-      <a href="login.php" class="menu-item">
-        <i class="fas fa-sign-out-alt"></i>
-        <span>Logout</span>
-      </a>
+      <a href="user_dashboard.php" class="menu-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+      <a href="user_billing.php" class="menu-item active"><i class="fas fa-file-invoice-dollar"></i><span>Bills</span></a>
+      <a href="user_history.php" class="menu-item"><i class="fas fa-history"></i><span>Payment History</span></a>
+      <a href="user_settings.php" class="menu-item"><i class="fas fa-cog"></i><span>Settings</span></a>
+      <a href="login.php" class="menu-item"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
     </div>
+  </div>
   </div>
 
   <div class="main-content">

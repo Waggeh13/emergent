@@ -27,9 +27,10 @@ require_once("../controllers/district_amount_controller.php");
                     <li><a href="super_admin_dashboard.php"><i class="fas fa-tachometer-alt"></i> <span class="link-text">Overview</span></a></li>
                     <li><a href="district_management.php"><i class="fas fa-map-marked-alt"></i> <span class="link-text">District Management</span></a></li>
                     <li><a href="admin_accounts.php"><i class="fas fa-user-shield"></i> <span class="link-text">Admin Accounts</span></a></li>
-                    <li><a href="report_analytics.php"><i class="fas fa-chart-line"></i> <span class="link-text">Reports & Analytics</span></a></li>
+                    <li><a href="report_analytics.php" class="menu-item active"><i class="fas fa-chart-line"></i> <span class="link-text">Reports & Analytics</span></a></li>
                     <li><a href="activity_log.php"><i class="fas fa-clipboard-list"></i> <span class="link-text">Activity Logs</span></a></li>
                     <li><a href="super_admin_settings.php"><i class="fas fa-cog"></i> <span class="link-text">Settings</span></a></li>
+                    <li><a href="super_admin_login.php"><i class="fas fa-sign-out-alt"></i> <span class="link-text">Logout</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -39,7 +40,7 @@ require_once("../controllers/district_amount_controller.php");
                 <div class="topbar-left">
                     <img src="../assets/emergent logo2.jpg" alt="Top Logo" class="topbar-logo">
                 </div>
-                <h1>Dashboard</h1>
+                <h1>Reports & Analytics</h1>
                 <nav class="topbar-nav">
                     <ul>
                         <li><a href="district_management.php">Districts</a></li>
@@ -77,9 +78,7 @@ require_once("../controllers/district_amount_controller.php");
                     <div class="metric-value" id="unpaid-properties">0 <span class="percentage">(0%)</span></div>
                 </div>
             </div>
-
             <section class="chart-section">
-                <h2>Payment Status Visualization</h2>
                 <div class="chart-container">
                     <canvas id="districtBarChart" width="900" height="300"></canvas>
                 </div>
@@ -104,6 +103,8 @@ require_once("../controllers/district_amount_controller.php");
             </div>
         </div> 
     </div>
+
+
     <script src="../js/reports.js"></script>
     <script src="../js/script.js"></script>
 </body>

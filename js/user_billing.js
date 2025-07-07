@@ -153,5 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     doc.save("receipt.pdf");
   });
+  
 
 });
