@@ -1,9 +1,15 @@
+<?php
+require_once("../controllers/district_controller.php");
+require_once("../controllers/properties_controller.php");
+require_once("../controllers/district_amount_controller.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dasboard</title>
+    <title>Reports & Analytics</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/reports_styles.css">
@@ -29,7 +35,6 @@
         </div>
 
         <div class="main-content">
-
             <div class="topbar">
                 <div class="topbar-left">
                     <img src="../assets/emergent logo2.jpg" alt="Top Logo" class="topbar-logo">
@@ -57,23 +62,22 @@
             <div class="metrics-grid">
                 <div class="metrics-card">
                     <h3><i class="fas fa-file-invoice-dollar"></i> Total Properties Billed</h3>
-                    <div class="metric-value">10,000</div>
+                    <div class="metric-value" id="total-properties">0</div>
                 </div>
                 <div class="metrics-card">
                     <h3><i class="fas fa-hand-holding-usd"></i> Total Payments</h3>
-                    <div class="metric-value">₵500,000</div>
+                    <div class="metric-value" id="total-payments">₵0.00</div>
                 </div>
                 <div class="metrics-card">
                     <h3><i class="fas fa-check-circle"></i> Paid Properties</h3>
-                    <div class="metric-value">7,200 <span class="percentage">(72%)</span></div>
+                    <div class="metric-value" id="paid-properties">0 <span class="percentage">(0%)</span></div>
                 </div>
                 <div class="metrics-card">
                     <h3><i class="fas fa-times-circle"></i> Unpaid Properties</h3>
-                    <div class="metric-value">2,800 <span class="percentage">(28%)</span></div>
+                    <div class="metric-value" id="unpaid-properties">0 <span class="percentage">(0%)</span></div>
                 </div>
             </div>
 
-            
             <section class="chart-section">
                 <h2>Payment Status Visualization</h2>
                 <div class="chart-container">
@@ -94,7 +98,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!--populated here-->
+                        <!-- Populated dynamically by JavaScript -->
                     </tbody>
                 </table>
             </div>

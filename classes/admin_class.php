@@ -21,8 +21,10 @@ class admin_class extends db_connection {
         $adminStatus = mysqli_real_escape_string($this->db_conn(), $adminStatus);
         $created_by = mysqli_real_escape_string($this->db_conn(), $_SESSION['super_admin_id']);
         $password = mysqli_real_escape_string($this->db_conn(), "Emergent@2025");
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
         $sql = "INSERT INTO admin_table (admin_id, fullname, email, password, district_id, Status, created_by)
-                VALUES ('$adminId', '$adminName', '$adminEmail', '$password', '$adminDistrict', '$adminStatus', '$created_by')";
+                VALUES ('$adminId', '$adminName', '$adminEmail', '$hashed_password', '$adminDistrict', '$adminStatus', '$created_by')";
         return $this->db_query($sql);
     }
 

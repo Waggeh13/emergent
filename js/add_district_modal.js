@@ -87,8 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 row.innerHTML = `
                     <td>${district.district_id}</td>
                     <td>${district.district_name}</td>
-                    <td>${totalPaid.toFixed(2)}</td>
-                    <td>${totalOwed.toFixed(2)}</td>
+                    <td>${totalPaid}</td>
+                    <td>${totalOwed}</td>
                     <td class="actions">
                         <button class="btn-edit" data-id="${district.district_id}"><i class="fas fa-edit"></i></button>
                         <button class="btn-delete" data-id="${district.district_id}"><i class="fas fa-trash"></i></button>
